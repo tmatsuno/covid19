@@ -2,7 +2,7 @@ version: "3.7"
 services:
   covid19:
     build: .
-    command: yarn dev
+    command: yarn install && yarn dev
     ports:
         - 3000:3000
     volumes:
