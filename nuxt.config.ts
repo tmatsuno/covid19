@@ -11,7 +11,8 @@ const config: Configuration = {
    */
   head: {
     base: {
-      href: 'router.base'
+      href: 'router.base',
+      target: ''
     },
     htmlAttrs: {
       prefix: 'og: http://ogp.me/ns#'
