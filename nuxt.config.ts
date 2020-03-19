@@ -10,6 +10,9 @@ const config: Configuration = {
    ** Headers of the page
    */
   head: {
+    base: {
+      href: 'router.base'
+    },
     htmlAttrs: {
       prefix: 'og: http://ogp.me/ns#'
     },
