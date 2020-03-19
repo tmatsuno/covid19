@@ -4,7 +4,7 @@ const purgecss = require('@fullhuman/postcss-purgecss')
 const config: Configuration = {
   mode: 'universal',
   router: {
-    base: '/DIRECTORY_NAME/'
+    base: '/covid19-chiba/'
   },
   /*
    ** Headers of the page
