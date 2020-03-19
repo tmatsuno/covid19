@@ -10,7 +10,7 @@
       </v-icon>
       <nuxt-link to="/" class="SideNavigation-HeadingLink">
         <div class="SideNavigation-Logo">
-          <img src="/logo.svg" :alt="$t('Prefecture')" />
+          <img src="logo.svg" :alt="$t('Prefecture')" />
         </div>
         <h1 class="SideNavigation-Heading">
           {{ $t('COVID-19') }}<br />{{ $t('Measures site') }}
