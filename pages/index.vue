@@ -155,8 +155,8 @@ export default {
       Data.inspections_summary.data['その他']
     ]
     const inspectionsItems = [
-      '県内発生（疑い例・接触者調査）',
-      'その他（チャーター便・クルーズ便）'
+      '市中感染・輸入例（疑い例・接触者調査）',
+      'その他（チャーター便・クルーズ便等）'
     ]
     const inspectionsLabels = Data.inspections_summary.labels
     // 千葉県用データ
