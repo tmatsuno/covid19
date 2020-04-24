@@ -1,5 +1,6 @@
 import { Configuration } from '@nuxt/types'
 const purgecss = require('@fullhuman/postcss-purgecss')
+const environment = process.env.NODE_ENV || 'development'
 
 const config: Configuration = {
   mode: 'universal',
@@ -97,6 +98,10 @@ const config: Configuration = {
       ssr: true
     },
     {
+      src: '@/plugins/axe',
+      ssr: true
+    },
+    {
       src: '@/plugins/vuetify.ts',
       ssr: true
     }
@@ -117,7 +122,7 @@ const config: Configuration = {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv',
+    ['@nuxtjs/dotenv', { filename: `.env.${environment}` }],
     [
       'nuxt-i18n',
       {
@@ -173,9 +178,9 @@ const config: Configuration = {
           whitelistPatterns: [/(col|row)/]
         })
       ]
-    },
+    }
     // https://ja.nuxtjs.org/api/configuration-build/#hardsource
-    hardSource: process.env.NODE_ENV === 'development'
+    // hardSource: process.env.NODE_ENV === 'development'
   },
   manifest: {
     name: '千葉県 新型コロナウイルス感染症対策サイト',
