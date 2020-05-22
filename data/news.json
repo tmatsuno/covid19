@@ -1,6 +1,16 @@
 {
   "newsItems": [
     {
+      "date": "2020-05-22T00:00:00+09:00",
+      "link": "https://www.pref.chiba.lg.jp/kenfuku/kansenshou/ncov/index.html",
+      "title": "千葉県新型コロナウイルス感染症対策本部会議"
+    },
+    {
+      "date": "2020-05-21T00:00:00+09:00",
+      "link": "https://www.pref.chiba.lg.jp/kenfuku/kansenshou/ncov/shiensaku.html",
+      "title": "相談窓口・支援情報｜新型コロナウイルス感染症"
+    },
+    {
       "date": "2020-05-20T00:00:00+09:00",
       "link": "https://www.pref.chiba.lg.jp/kenfuku/kansenshou/ncov/shiensaku.html",
       "title": "相談窓口・支援情報｜新型コロナウイルス感染症"
@@ -97,13 +107,13 @@
     },
     {
       "date": "2020-05-06T00:00:00+09:00",
-      "link": "https://www.pref.chiba.lg.jp/shippei/press/2020/ncov20200506-2.html",
-      "title": "新型コロナウイルス感染症感染者の発生について(令和2年5月6日)"
+      "link": "https://www.pref.chiba.lg.jp/shippei/press/2020/ncov20200506.html",
+      "title": "新型コロナウイルスに関連した患者の死亡について(37例目)"
     },
     {
       "date": "2020-05-06T00:00:00+09:00",
-      "link": "https://www.pref.chiba.lg.jp/shippei/press/2020/ncov20200506.html",
-      "title": "新型コロナウイルスに関連した患者の死亡について(37例目)"
+      "link": "https://www.pref.chiba.lg.jp/shippei/press/2020/ncov20200506-2.html",
+      "title": "新型コロナウイルス感染症感染者の発生について(令和2年5月6日)"
     },
     {
       "date": "2020-05-05T00:00:00+09:00",
