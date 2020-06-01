@@ -39,7 +39,7 @@
             class="SideNavigation-SocialLink"
           >
             <picture>
-              <source srcset="/github.webp" type="image/webp" />
+              <source srcset="github.webp" type="image/webp" />
               <img src="github.png" alt="GitHub" />
             </picture>
           </a>
