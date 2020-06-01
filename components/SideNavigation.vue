@@ -40,7 +40,7 @@
           >
             <picture>
               <source srcset="/github.webp" type="image/webp" />
-              <img src="/github.png" alt="GitHub" />
+              <img src="github.png" alt="GitHub" />
             </picture>
           </a>
         </div>
