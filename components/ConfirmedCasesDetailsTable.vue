@@ -31,9 +31,11 @@
         <li :class="[$style.box, $style.parent, $style.hospitalized]">
           <div :class="$style.pillar">
             <div :class="$style.content">
-              <span>入院中</span>
+              <!-- eslint-disable vue/no-v-html-->
+              <span v-html="$t('現在の<br />感染者')" />
+              <!-- eslint-enable vue/no-v-html-->
               <span>
-                <strong>{{ 入院中.toLocaleString() }}</strong>
+                <strong>{{ 現在の感染者.toLocaleString() }}</strong>
                 <span :class="$style.unit">人</span>
               </span>
             </div>
@@ -79,9 +81,11 @@
         <li :class="[$style.box, $style.recovered]">
           <div :class="$style.pillar">
             <div :class="$style.content">
-              <span>退院</span>
+              <!-- eslint-disable vue/no-v-html-->
+              <span v-html="$t('退院・<br />療養終了')" />
+              <!-- eslint-enable vue/no-v-html-->
               <span>
-                <strong>{{ 退院.toLocaleString() }}</strong>
+                <strong>{{ 退院_療養終了.toLocaleString() }}</strong>
                 <span :class="$style.unit">人</span>
               </span>
             </div>
@@ -105,7 +109,7 @@ export default Vue.extend({
       type: Number,
       required: true
     },
-    入院中: {
+    現在の感染者: {
       type: Number,
       required: true
     },
@@ -121,7 +125,7 @@ export default Vue.extend({
       type: Number,
       required: true
     },
-    退院: {
+    退院_療養終了: {
       type: Number,
       required: true
     }
