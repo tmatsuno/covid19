@@ -1,13 +1,15 @@
 <template>
   <ul :class="$style.container">
-    <li :class="[$style.pillar_inspection]">
-      <span>
-        検査実施人数
-      </span>
-      <span>
-        <strong>{{ 検査実施人数.toLocaleString() }}</strong>
-        <span :class="$style.unit">人</span>
-      </span>
+    <li :class="[$style.box, $style.pillar_inspection]">
+      <div :class="$style.content">
+        <span>
+          検査実施人数
+        </span>
+        <span>
+          <strong>{{ 検査実施人数.toLocaleString() }}</strong>
+          <span :class="$style.unit">人</span>
+        </span>
+      </div>
     </li>
     <li :class="[$style.box, $style.parent]">
       <div :class="$style.content">
@@ -169,25 +171,6 @@ $default-boxdiff: 35px;
   }
 }
 
-.pillar_inspection {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  border: $default-bdw solid $gray-1;
-  color: $gray-1;
-  padding: 5px 10px;
-  text-align: left;
-
-  strong {
-    @include font-size(16);
-  }
-
-  span.unit {
-    @include font-size(14);
-  }
-}
-
 .group {
   flex: 0 0 auto;
   padding-left: $default-bdw !important;
@@ -263,6 +246,14 @@ $default-boxdiff: 35px;
       border-bottom: none;
     }
   }
+
+  &.pillar_inspection {
+    color: $gray-1;
+    border: $default-bdw solid $gray-1;
+    > .content {
+      border: none;
+    }
+  }
 }
 
 @function px2vw($px, $vw: 0) {
@@ -274,19 +265,6 @@ $default-boxdiff: 35px;
 }
 
 @mixin override($vw, $bdw, $fz, $boxdiff) {
-  .pillar_inspection {
-    padding: px2vw(5, $vw) px2vw(10, $vw);
-    border: px2vw($bdw, $vw) solid $gray-1;
-
-    strong {
-      @include font-size($fz + 2);
-    }
-
-    span.unit {
-      @include font-size($fz);
-    }
-  }
-
   .group {
     padding-left: px2vw($bdw, $vw) !important;
     border-top: px2vw($bdw, $vw) solid $green-1;
@@ -335,6 +313,10 @@ $default-boxdiff: 35px;
         margin-left: -(px2vw($boxdiff, $vw) - px2vw($bdw, $vw) * 2);
         width: calc(100% + #{(px2vw($boxdiff, $vw) - px2vw($bdw, $vw) * 2)});
       }
+    }
+
+    &.pillar_inspection {
+      border: px2vw($bdw, $vw) solid $gray-1;
     }
   }
 }
