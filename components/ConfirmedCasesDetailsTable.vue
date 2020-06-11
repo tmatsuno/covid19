@@ -24,9 +24,7 @@
       <ul :class="$style.group">
         <li :class="[$style.box, $style.parent]">
           <div :class="$style.content">
-            <span>
-              {{ $t('現在の感染者') }}
-            </span>
+            <span>現在の感染者</span>
             <span>
               <strong>{{ 現在の感染者.toLocaleString() }}</strong>
               <span :class="$style.unit">人</span>
@@ -36,9 +34,7 @@
             <li :class="[$style.box, $style.short, $style.minor]">
               <div :class="$style.pillar">
                 <div :class="$style.content">
-                  <span>
-                    {{ $t('軽症・中等症') }}
-                  </span>
+                  <span>軽症・中等症</span>
                   <span>
                     <strong>{{ 軽症中等症.toLocaleString() }}</strong>
                     <span :class="$style.unit">人</span>
@@ -73,9 +69,7 @@
         <li :class="[$style.box]">
           <div :class="$style.pillar">
             <div :class="$style.content">
-              <span>
-                {{ $t('退院・療養終了') }}
-              </span>
+              <span>退院・療養終了</span>
               <span>
                 <strong>{{ 退院_療養終了.toLocaleString() }}</strong>
                 <span :class="$style.unit">人</span>
