@@ -30,14 +30,12 @@
           "
         />
         -->
-        <time-stacked-bar-chart
+        <time-bar-chart
           title="陽性反応者数の推移"
-          :title-id="'number-of-tested'"
-          :chart-id="'time-stacked-bar-chart-inspections'"
-          :chart-data="patientsAndNoSymptomsGraph"
-          :date="Data.patients_and_no_symptoms_summary.date"
-          :items="patientsAndNoSymptomsItems"
-          :labels="patientsAndNoSymptomsLabels"
+          :title-id="'number-of-confirmed-cases'"
+          :chart-id="'time-bar-chart-patients'"
+          :chart-data="patientsGraph"
+          :date="patientsDate"
           :unit="'件'"
         >
           <template #supplement>
@@ -47,7 +45,7 @@
               変）
             </p>
           </template>
-        </time-stacked-bar-chart>
+        </time-bar-chart>
       </v-col>
       <v-col cols="12" md="6" class="DataCard">
         <data-table
@@ -102,7 +100,7 @@
 
 <script>
 import PageHeader from '@/components/PageHeader.vue'
-// import TimeBarChart from '@/components/TimeBarChart.vue'
+import TimeBarChart from '@/components/TimeBarChart.vue'
 import TimeStackedBarChart from '@/components/TimeStackedBarChart.vue'
 import WhatsNew from '@/components/WhatsNew.vue'
 import StaticInfo from '@/components/StaticInfo.vue'
@@ -118,7 +116,7 @@ import ConfirmedCasesDetailsCard from '@/components/cards/ConfirmedCasesDetailsC
 export default {
   components: {
     PageHeader,
-    // TimeBarChart,
+    TimeBarChart,
     TimeStackedBarChart,
     WhatsNew,
     StaticInfo,
@@ -127,7 +125,7 @@ export default {
   },
   data() {
     // 感染者数グラフ
-    const patientsGraph = formatGraph(Data.patients_summary.data)
+    const patientsGraph = formatGraph(DataPub.patients.data)
     // 感染者数
     const patientsTable = formatTable(Data.patients.data)
     // 退院者グラフ
@@ -152,6 +150,11 @@ export default {
       Data.patients_and_no_symptoms_summary.data['患者'],
       Data.patients_and_no_symptoms_summary.data['無症状病原体保有者']
     ]
+    // const patientsGraph = DataPub.patients_summary.data['確定数']
+    const patientsDate = DataPub.patients_summary.date
+    const patientsLabels = DataPub.patients_summary.labels
+    const patientsItems = ['確定数', '公表数']
+
     const patientsAndNoSymptomsItems = ['陽性患者', '無症状病原体保有者']
     const patientsAndNoSymptomsLabels =
       Data.patients_and_no_symptoms_summary.labels
@@ -183,6 +186,9 @@ export default {
       inspectionsDate,
       inspectionsItems,
       inspectionsLabels,
+      patientsDate,
+      patientsItems,
+      patientsLabels,
       patientsAndNoSymptomsGraph,
       patientsAndNoSymptomsItems,
       patientsAndNoSymptomsLabels,
