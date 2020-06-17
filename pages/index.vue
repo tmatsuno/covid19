@@ -37,15 +37,7 @@
           :chart-data="patientsGraph"
           :date="patientsDate"
           :unit="'件'"
-        >
-          <template #supplement>
-            <p class="Graph-Desc">
-              無症状病原体保有者：症状は無いがＰＣＲ検査が陽性だった者で、
-              他者へ感染させる可能性は低いとみられている。（出典：厚生労働省Ｑ＆Ａ一部改
-              変）
-            </p>
-          </template>
-        </time-bar-chart>
+        />
       </v-col>
       <v-col cols="12" md="6" class="DataCard">
         <data-table
@@ -140,10 +132,10 @@ export default {
     // 検査実施日別状況
     const inspectionsDate = DataPub.inspections_summary.date
     const inspectionsGraph = [
-      DataPub.inspections_summary.data['県内'],
-      DataPub.inspections_summary.data['その他']
+      DataPub.inspections_summary.data['陽性'],
+      DataPub.inspections_summary.data['陰性']
     ]
-    const inspectionsItems = ['県内', 'その他']
+    const inspectionsItems = ['陽性', '陰性']
     const inspectionsLabels = DataPub.inspections_summary.labels
     // 千葉県用データ
     const patientsAndNoSymptomsGraph = [
