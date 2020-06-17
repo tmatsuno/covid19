@@ -68,7 +68,7 @@
           :title-id="'number-of-tested'"
           :chart-id="'time-stacked-bar-chart-inspections'"
           :chart-data="inspectionsGraph"
-          :date="Data.inspections_summary.date"
+          :date="inspectionsDate"
           :items="inspectionsItems"
           :labels="inspectionsLabels"
           :unit="'件'"
@@ -107,6 +107,7 @@ import TimeStackedBarChart from '@/components/TimeStackedBarChart.vue'
 import WhatsNew from '@/components/WhatsNew.vue'
 import StaticInfo from '@/components/StaticInfo.vue'
 import Data from '@/data/data.json'
+import DataPub from '@/data/DataPub.json'
 import DataTable from '@/components/DataTable.vue'
 import formatGraph from '@/utils/formatGraph'
 import formatTable from '@/utils/formatTable'
@@ -139,15 +140,13 @@ export default {
     // const querentsGraph = formatGraph(Data.querents.data)
     // 都営地下鉄の利用者数の推移
     // 検査実施日別状況
+    const inspectionsDate = DataPub.inspections_summary.date
     const inspectionsGraph = [
-      Data.inspections_summary.data['県内'],
-      Data.inspections_summary.data['その他']
+      DataPub.inspections_summary.data['県内'],
+      DataPub.inspections_summary.data['その他']
     ]
-    const inspectionsItems = [
-      '市中感染・輸入例（疑い例・接触者調査）',
-      'その他（チャーター便・クルーズ便等）'
-    ]
-    const inspectionsLabels = Data.inspections_summary.labels
+    const inspectionsItems = ['県内', 'その他']
+    const inspectionsLabels = DataPub.inspections_summary.labels
     // 千葉県用データ
     const patientsAndNoSymptomsGraph = [
       Data.patients_and_no_symptoms_summary.data['患者'],
@@ -181,6 +180,7 @@ export default {
       // contactsGraph,
       // querentsGraph,
       inspectionsGraph,
+      inspectionsDate,
       inspectionsItems,
       inspectionsLabels,
       patientsAndNoSymptomsGraph,
