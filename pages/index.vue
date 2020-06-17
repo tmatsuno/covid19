@@ -12,12 +12,16 @@
       :text="'自分や家族の症状に不安や心配があればまずは電話相談をどうぞ'"
       :btn-text="'相談の手順を見る'"
     />
-    <v-row class="DataBlock">
-      <v-col cols="12" md="6" class="DataCard">
-        <confirmed-cases-details-card />
-      </v-col>
-      <v-col cols="12" md="6" class="DataCard">
-        <!--
+    <div v-if="loading">
+      Loading...
+    </div>
+    <div v-else>
+      <v-row class="DataBlock">
+        <v-col cols="12" md="6" class="DataCard">
+          <confirmed-cases-details-card />
+        </v-col>
+        <v-col cols="12" md="6" class="DataCard">
+          <!--
         <time-bar-chart
           title="陽性患者数"
           :title-id="'number-of-confirmed-cases'"
@@ -30,41 +34,41 @@
           "
         />
         -->
-        <time-bar-chart
-          title="陽性反応者数の推移"
-          :title-id="'number-of-confirmed-cases'"
-          :chart-id="'time-bar-chart-patients'"
-          :chart-data="patientsGraph"
-          :date="patientsDate"
-          :unit="'件'"
-        />
-      </v-col>
-      <v-col cols="12" md="6" class="DataCard">
-        <data-table
-          :title="'陽性患者の属性'"
-          :title-id="'attributes-of-confirmed-cases'"
-          :chart-data="patientsTable"
-          :chart-option="{}"
-          :date="Data.patients.date"
-          :info="sumInfoOfPatients"
-          :url="
-            'https://catalog.data.metro.tokyo.lg.jp/dataset/t000010d0000000068'
-          "
-        />
-      </v-col>
-      <v-col cols="12" md="6" class="DataCard">
-        <time-stacked-bar-chart
-          title="検査実施数"
-          :title-id="'number-of-tested'"
-          :chart-id="'time-stacked-bar-chart-inspections'"
-          :chart-data="inspectionsGraph"
-          :date="inspectionsDate"
-          :items="inspectionsItems"
-          :labels="inspectionsLabels"
-          :unit="'件'"
-        />
-      </v-col>
-      <!-- <v-col cols="12" md="6" class="DataCard">
+          <time-bar-chart
+            title="陽性反応者数の推移"
+            :title-id="'number-of-confirmed-cases'"
+            :chart-id="'time-bar-chart-patients'"
+            :chart-data="patientsGraph"
+            :date="patientsDate"
+            :unit="'人'"
+          />
+        </v-col>
+        <v-col cols="12" md="6" class="DataCard">
+          <data-table
+            :title="'陽性患者の属性'"
+            :title-id="'attributes-of-confirmed-cases'"
+            :chart-data="patientsTable"
+            :chart-option="{}"
+            :date="Data.patients.date"
+            :info="sumInfoOfPatients"
+            :url="
+              'https://catalog.data.metro.tokyo.lg.jp/dataset/t000010d0000000068'
+            "
+          />
+        </v-col>
+        <v-col cols="12" md="6" class="DataCard">
+          <time-stacked-bar-chart
+            title="検査実施数"
+            :title-id="'number-of-tested'"
+            :chart-id="'time-stacked-bar-chart-inspections'"
+            :chart-data="inspectionsGraph"
+            :date="inspectionsDate"
+            :items="inspectionsItems"
+            :labels="inspectionsLabels"
+            :unit="'件'"
+          />
+        </v-col>
+        <!-- <v-col cols="12" md="6" class="DataCard">
         <time-bar-chart
           title="新型コロナコールセンター相談件数"
           :title-id="'number-of-reports-to-covid19-telephone-advisory-center'"
@@ -75,7 +79,7 @@
           :url="''"
         />
       </v-col> -->
-      <!-- <v-col cols="12" md="6" class="DataCard">
+        <!-- <v-col cols="12" md="6" class="DataCard">
         <time-bar-chart
           title="帰国者接触者センター相談件数"
           :title-id="'number-of-reports-to-covid19-consultation-desk'"
@@ -86,18 +90,18 @@
           :url="''"
         />
       </v-col> -->
-    </v-row>
+      </v-row>
+    </div>
   </div>
 </template>
-
 <script>
+import axios from 'axios'
 import PageHeader from '@/components/PageHeader.vue'
 import TimeBarChart from '@/components/TimeBarChart.vue'
 import TimeStackedBarChart from '@/components/TimeStackedBarChart.vue'
 import WhatsNew from '@/components/WhatsNew.vue'
 import StaticInfo from '@/components/StaticInfo.vue'
 import Data from '@/data/data.json'
-import DataPub from '@/data/DataPub.json'
 import DataTable from '@/components/DataTable.vue'
 import formatGraph from '@/utils/formatGraph'
 import formatTable from '@/utils/formatTable'
@@ -116,8 +120,10 @@ export default {
     ConfirmedCasesDetailsCard
   },
   data() {
+    const DataPub = {}
     // 感染者数グラフ
-    const patientsGraph = formatGraph(DataPub.patients.data)
+    // const patientsGraph = formatGraph(DataPub.patients.data)
+    const patientsGraph = {}
     // 感染者数
     const patientsTable = formatTable(Data.patients.data)
     // 退院者グラフ
@@ -130,21 +136,26 @@ export default {
     // const querentsGraph = formatGraph(Data.querents.data)
     // 都営地下鉄の利用者数の推移
     // 検査実施日別状況
-    const inspectionsDate = DataPub.inspections_summary.date
-    const inspectionsGraph = [
-      DataPub.inspections_summary.data['陽性'],
-      DataPub.inspections_summary.data['陰性']
-    ]
+    // const inspectionsDate = DataPub.inspections_summary.date
+    const inspectionsDate = {}
+    const inspectionsGraph = []
+    //  DataPub.inspections_summary.data['陽性'],
+    //  DataPub.inspections_summary.data['陰性']
+    // ]
     const inspectionsItems = ['陽性', '陰性']
-    const inspectionsLabels = DataPub.inspections_summary.labels
+    // const inspectionsLabels = DataPub.inspections_summary.labels
+    const inspectionsLabels = []
     // 千葉県用データ
     const patientsAndNoSymptomsGraph = [
       Data.patients_and_no_symptoms_summary.data['患者'],
       Data.patients_and_no_symptoms_summary.data['無症状病原体保有者']
     ]
     // const patientsGraph = DataPub.patients_summary.data['確定数']
-    const patientsDate = DataPub.patients_summary.date
-    const patientsLabels = DataPub.patients_summary.labels
+    // const patientsDate = DataPub.patients_summary.date
+    // const patientsLabels = DataPub.patients_summary.labels
+    const patientsDate = {}
+    const patientsLabels = []
+
     const patientsItems = ['確定数', '公表数']
 
     const patientsAndNoSymptomsItems = ['陽性患者', '無症状病原体保有者']
@@ -168,6 +179,7 @@ export default {
 
     const data = {
       Data,
+      DataPub,
       patientsTable,
       patientsGraph,
       dischargesTable,
@@ -186,6 +198,8 @@ export default {
       patientsAndNoSymptomsLabels,
       confirmedCases,
       sumInfoOfPatients,
+      loading: true,
+      errored: false,
       headerItem: {
         icon: 'mdi-chart-timeline-variant',
         title: '県内の最新感染動向',
@@ -241,6 +255,29 @@ export default {
       }
     }
     return data
+  },
+  mounted() {
+    axios
+      .get('https://covid19chiba.s3-ap-northeast-1.amazonaws.com/DataPub.json')
+      .then(response => {
+        this.DataPub = response.data
+        console.log('loading done')
+        console.log(this.DataPub)
+        this.patientsGraph = formatGraph(this.DataPub.patients.data)
+        this.inspectionsDate = this.DataPub.inspections_summary.date
+        this.inspectionsGraph = [
+          this.DataPub.inspections_summary.data['陽性'],
+          this.DataPub.inspections_summary.data['陰性']
+        ]
+        this.inspectionsLabels = this.DataPub.inspections_summary.labels
+        this.patientsDate = this.DataPub.patients_summary.date
+        this.patientsLabels = this.DataPub.patients_summary.labels
+      })
+      .catch(error => {
+        console.log(error)
+        this.errored = true
+      })
+      .finally(() => (this.loading = false))
   },
   head() {
     return {
