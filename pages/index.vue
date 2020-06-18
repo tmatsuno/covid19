@@ -21,19 +21,6 @@
           <confirmed-cases-details-card />
         </v-col>
         <v-col cols="12" md="6" class="DataCard">
-          <!--
-        <time-bar-chart
-          title="陽性患者数"
-          :title-id="'number-of-confirmed-cases'"
-          :chart-id="'time-bar-chart-patients'"
-          :chart-data="patientsGraph"
-          :date="Data.patients.date"
-          :unit="'人'"
-          :url="
-            'https://catalog.data.metro.tokyo.lg.jp/dataset/t000010d0000000068'
-          "
-        />
-        -->
           <time-bar-chart
             title="陽性反応者数の推移"
             :title-id="'number-of-confirmed-cases'"
@@ -68,28 +55,6 @@
             :unit="'件'"
           />
         </v-col>
-        <!-- <v-col cols="12" md="6" class="DataCard">
-        <time-bar-chart
-          title="新型コロナコールセンター相談件数"
-          :title-id="'number-of-reports-to-covid19-telephone-advisory-center'"
-          :chart-id="'time-bar-chart-contacts'"
-          :chart-data="contactsGraph"
-          :date="Data.contacts.date"
-          :unit="'件'"
-          :url="''"
-        />
-      </v-col> -->
-        <!-- <v-col cols="12" md="6" class="DataCard">
-        <time-bar-chart
-          title="帰国者接触者センター相談件数"
-          :title-id="'number-of-reports-to-covid19-consultation-desk'"
-          :chart-id="'time-bar-chart-querents'"
-          :chart-data="querentsGraph"
-          :date="Data.querents.date"
-          :unit="'件'"
-          :url="''"
-        />
-      </v-col> -->
       </v-row>
     </div>
   </div>
@@ -122,7 +87,6 @@ export default {
   data() {
     const DataPub = {}
     // 感染者数グラフ
-    // const patientsGraph = formatGraph(DataPub.patients.data)
     const patientsGraph = {}
     // 感染者数
     const patientsTable = formatTable(Data.patients.data)
@@ -130,45 +94,19 @@ export default {
     const dischargesGraph = formatGraph(Data.discharges_summary.data)
     // 退院者数
     const dischargesTable = formatTable(Data.discharges.data)
-    // // 相談件数
-    // const contactsGraph = formatGraph(Data.contacts.data)
-    // // 帰国者・接触者電話相談センター相談件数
-    // const querentsGraph = formatGraph(Data.querents.data)
-    // 都営地下鉄の利用者数の推移
-    // 検査実施日別状況
-    // const inspectionsDate = DataPub.inspections_summary.date
     const inspectionsDate = {}
     const inspectionsGraph = []
-    //  DataPub.inspections_summary.data['陽性'],
-    //  DataPub.inspections_summary.data['陰性']
-    // ]
     const inspectionsItems = ['陽性', '陰性']
-    // const inspectionsLabels = DataPub.inspections_summary.labels
     const inspectionsLabels = []
-    // 千葉県用データ
+    const patientsDate = {}
+    const patientsLabels = []
+
     const patientsAndNoSymptomsGraph = [
       Data.patients_and_no_symptoms_summary.data['患者'],
       Data.patients_and_no_symptoms_summary.data['無症状病原体保有者']
     ]
-    // const patientsGraph = DataPub.patients_summary.data['確定数']
-    // const patientsDate = DataPub.patients_summary.date
-    // const patientsLabels = DataPub.patients_summary.labels
-    const patientsDate = {}
-    const patientsLabels = []
-
-    const patientsItems = ['確定数', '公表数']
-
-    const patientsAndNoSymptomsItems = ['陽性患者', '無症状病原体保有者']
     const patientsAndNoSymptomsLabels =
       Data.patients_and_no_symptoms_summary.labels
-    // 死亡者数
-    // #MEMO: 今後使う可能性あるので一時コメントアウト
-    // const fatalitiesTable = formatTable(
-    //   Data.patients.data.filter(patient => patient['備考'] === '死亡')
-    // )
-    // 検査陽性者の状況
-    const confirmedCases = formatConfirmedCases(Data.main_summary)
-
     const sumInfoOfPatients = {
       lText: patientsAndNoSymptomsGraph[0].reduce((a, c) => a + c),
       sText:
@@ -176,6 +114,14 @@ export default {
         'の累計',
       unit: '人'
     }
+
+    // 死亡者数
+    // #MEMO: 今後使う可能性あるので一時コメントアウト
+    // const fatalitiesTable = formatTable(
+    //   Data.patients.data.filter(patient => patient['備考'] === '死亡')
+    // )
+    // 検査陽性者の状況
+    const confirmedCases = formatConfirmedCases(Data.main_summary)
 
     const data = {
       Data,
@@ -190,14 +136,10 @@ export default {
       inspectionsDate,
       inspectionsItems,
       inspectionsLabels,
-      patientsDate,
-      patientsItems,
-      patientsLabels,
-      patientsAndNoSymptomsGraph,
-      patientsAndNoSymptomsItems,
-      patientsAndNoSymptomsLabels,
-      confirmedCases,
       sumInfoOfPatients,
+      patientsDate,
+      patientsLabels,
+      confirmedCases,
       loading: true,
       errored: false,
       headerItem: {
@@ -261,8 +203,6 @@ export default {
       .get('https://covid19chiba.s3-ap-northeast-1.amazonaws.com/DataPub.json')
       .then(response => {
         this.DataPub = response.data
-        console.log('loading done')
-        console.log(this.DataPub)
         this.patientsGraph = formatGraph(this.DataPub.patients.data)
         this.inspectionsDate = this.DataPub.inspections_summary.date
         this.inspectionsGraph = [
@@ -274,8 +214,8 @@ export default {
         this.patientsLabels = this.DataPub.patients_summary.labels
       })
       .catch(error => {
-        console.log(error)
         this.errored = true
+        this.error = error
       })
       .finally(() => (this.loading = false))
   },
