@@ -45,19 +45,6 @@
           />
         </v-col>
         <v-col cols="12" md="6" class="DataCard">
-          <data-table
-            :title="'陽性患者の属性'"
-            :title-id="'attributes-of-confirmed-cases'"
-            :chart-data="patientsTable"
-            :chart-option="{}"
-            :date="Data.patients.date"
-            :info="sumInfoOfPatients"
-            :url="
-              'https://catalog.data.metro.tokyo.lg.jp/dataset/t000010d0000000068'
-            "
-          />
-        </v-col>
-        <v-col cols="12" md="6" class="DataCard">
           <time-stacked-bar-chart
             title="検査実施数"
             :title-id="'number-of-tested'"
@@ -81,10 +68,8 @@ import TimeStackedBarChart from '@/components/TimeStackedBarChart.vue'
 import WhatsNew from '@/components/WhatsNew.vue'
 import StaticInfo from '@/components/StaticInfo.vue'
 import Data from '@/data/data.json'
-import DataTable from '@/components/DataTable.vue'
 import formatGraph from '@/utils/formatGraph'
 import formatTable from '@/utils/formatTable'
-// import formatConfirmedCases from '@/utils/formatConfirmedCases'
 import News from '@/data/news.json'
 import DataView from '@/components/DataView.vue'
 import ConfirmedCasesDetailsTable from '@/components/ConfirmedCasesDetailsTable.vue'
@@ -96,7 +81,6 @@ export default {
     TimeStackedBarChart,
     WhatsNew,
     StaticInfo,
-    DataTable,
     DataView,
     ConfirmedCasesDetailsTable
   },
@@ -231,7 +215,6 @@ export default {
         this.patientsDate = this.DataPub.patients_summary.date
         this.patientsLabels = this.DataPub.patients_summary.labels
         const data = this.DataPub.main_summary
-        console.log(this.DataPub.main_summary)
         const formattedData = {
           検査実施人数: 0,
           陽性患者: data.patients_count,
@@ -250,7 +233,6 @@ export default {
           死亡: data.death_count,
           退院_療養終了: data.discharge_count + data.finish_stay_count
         }
-        console.log(formattedData)
         // this.confirmedCases = formatConfirmedCases(this.DataPub.main_summary)
         this.confirmedCases = formattedData
       })
