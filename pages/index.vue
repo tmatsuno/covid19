@@ -18,7 +18,21 @@
     <div v-else>
       <v-row class="DataBlock">
         <v-col cols="12" md="6" class="DataCard">
-          <confirmed-cases-details-card />
+          <data-view
+            :title="$t('検査陽性者の状況')"
+            :title-id="'details-of-confirmed-cases'"
+          >
+            <template v-slot:button>
+              <p :class="$style.note">
+                （注）県内において疑い例または患者の濃厚接触者として検査を行ったものについて掲載<br />
+                （チャーター機帰国者、クルーズ船乗客等は含まれていない。）
+              </p>
+            </template>
+            <confirmed-cases-details-table
+              :aria-label="$t('検査陽性者の状況')"
+              v-bind="confirmedCases"
+            />
+          </data-view>
         </v-col>
         <v-col cols="12" md="6" class="DataCard">
           <time-bar-chart
@@ -70,9 +84,10 @@ import Data from '@/data/data.json'
 import DataTable from '@/components/DataTable.vue'
 import formatGraph from '@/utils/formatGraph'
 import formatTable from '@/utils/formatTable'
-import formatConfirmedCases from '@/utils/formatConfirmedCases'
+// import formatConfirmedCases from '@/utils/formatConfirmedCases'
 import News from '@/data/news.json'
-import ConfirmedCasesDetailsCard from '@/components/cards/ConfirmedCasesDetailsCard.vue'
+import DataView from '@/components/DataView.vue'
+import ConfirmedCasesDetailsTable from '@/components/ConfirmedCasesDetailsTable.vue'
 
 export default {
   components: {
@@ -82,7 +97,8 @@ export default {
     WhatsNew,
     StaticInfo,
     DataTable,
-    ConfirmedCasesDetailsCard
+    DataView,
+    ConfirmedCasesDetailsTable
   },
   data() {
     const DataPub = {}
@@ -121,7 +137,7 @@ export default {
     //   Data.patients.data.filter(patient => patient['備考'] === '死亡')
     // )
     // 検査陽性者の状況
-    const confirmedCases = formatConfirmedCases(Data.main_summary)
+    const confirmedCases = {}
 
     const data = {
       Data,
@@ -200,7 +216,9 @@ export default {
   },
   mounted() {
     axios
-      .get('https://covid19chiba.s3-ap-northeast-1.amazonaws.com/DataPub.json')
+      .get(
+        'https://covid19chiba.s3-ap-northeast-1.amazonaws.com/DataPubTest.json'
+      )
       .then(response => {
         this.DataPub = response.data
         this.patientsGraph = formatGraph(this.DataPub.patients.data)
@@ -212,6 +230,29 @@ export default {
         this.inspectionsLabels = this.DataPub.inspections_summary.labels
         this.patientsDate = this.DataPub.patients_summary.date
         this.patientsLabels = this.DataPub.patients_summary.labels
+        const data = this.DataPub.main_summary
+        console.log(this.DataPub.main_summary)
+        const formattedData = {
+          検査実施人数: 0,
+          陽性患者: data.patients_count,
+          現在の感染者:
+            data.hospital_count +
+            data.hospital_waiting_count +
+            data.hotel_stay_count +
+            data.home_stay_count,
+          軽症中等症:
+            data.hospital_count +
+            data.hospital_waiting_count +
+            data.hotel_stay_count +
+            data.home_stay_count -
+            data.severe_injury_count,
+          重症: data.severe_injury_count,
+          死亡: data.death_count,
+          退院_療養終了: data.discharge_count + data.finish_stay_count
+        }
+        console.log(formattedData)
+        // this.confirmedCases = formatConfirmedCases(this.DataPub.main_summary)
+        this.confirmedCases = formattedData
       })
       .catch(error => {
         this.errored = true
@@ -240,5 +281,13 @@ export default {
       }
     }
   }
+}
+</style>
+<style lang="scss" module>
+.note {
+  margin-top: 10px;
+  margin-bottom: 0;
+  font-size: 12px;
+  color: $gray-3;
 }
 </style>
