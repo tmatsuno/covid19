@@ -150,9 +150,7 @@ export default {
   },
   mounted() {
     axios
-      .get(
-        'https://covid19chiba.s3-ap-northeast-1.amazonaws.com/DataPubTest.json'
-      )
+      .get('https://covid19chiba.s3-ap-northeast-1.amazonaws.com/DataPub.json')
       .then(response => {
         this.DataPub = response.data
         this.headerItem = {
@@ -172,7 +170,7 @@ export default {
         this.patientsLabels = this.DataPub.patients_summary.labels
         const data = this.DataPub.main_summary
         const formattedData = {
-          検査実施人数: 0,
+          検査実施人数: data.inspections_total_count,
           陽性患者: data.patients_count,
           現在の感染者:
             data.hospital_count +

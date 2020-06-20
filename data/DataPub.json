@@ -2608,6 +2608,7 @@
   "main_summary": {
     "date": "2020/06/19 14:39",
     "target_date": "6/19/2020",
+    "inspections_total_count": 17021,
     "patients_count": 926,
     "hospital_count": 21,
     "hospital_waiting_count": 0,
