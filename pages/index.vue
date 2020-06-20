@@ -84,27 +84,16 @@ export default {
     ConfirmedCasesDetailsTable
   },
   data() {
-    const DataPub = {}
-    // 感染者数グラフ
-    const patientsGraph = {}
-    const inspectionsDate = {}
-    const inspectionsGraph = []
-    const inspectionsItems = []
-    const inspectionsLabels = []
-    const patientsDate = {}
-    const patientsLabels = []
-    const confirmedCases = {}
-
     const data = {
-      DataPub,
-      patientsGraph,
-      inspectionsGraph,
-      inspectionsDate,
-      inspectionsItems,
-      inspectionsLabels,
-      patientsDate,
-      patientsLabels,
-      confirmedCases,
+      DataPub: {},
+      patientsGraph: {},
+      inspectionsGraph: [],
+      inspectionsDate: {},
+      inspectionsItems: [],
+      inspectionsLabels: [],
+      patientsDate: {},
+      patientsLabels: [],
+      confirmedCases: {},
       loading: true,
       errored: false,
       headerItem: {},
