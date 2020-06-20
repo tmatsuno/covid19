@@ -1,26 +1,27 @@
 <template>
   <div class="MainPage">
-    <page-header
-      :icon="headerItem.icon"
-      :title="headerItem.title"
-      :date="headerItem.date"
-    />
-    <whats-new class="mb-4" :items="newsItems" />
-    <static-info
-      class="mb-4"
-      url="https://www.pref.chiba.lg.jp/kenfuku/kansenshou/corona-soudancenter.html#meyasu"
-      :text="'自分や家族の症状に不安や心配があればまずは電話相談をどうぞ'"
-      :btn-text="'相談の手順を見る'"
-    />
     <div v-if="loading">
       Loading...
     </div>
     <div v-else>
+      <page-header
+        :icon="headerItem.icon"
+        :title="headerItem.title"
+        :date="headerItem.date"
+      />
+      <whats-new class="mb-4" :items="newsItems" />
+      <static-info
+        class="mb-4"
+        url="https://www.pref.chiba.lg.jp/kenfuku/kansenshou/corona-soudancenter.html#meyasu"
+        :text="'自分や家族の症状に不安や心配があればまずは電話相談をどうぞ'"
+        :btn-text="'相談の手順を見る'"
+      />
       <v-row class="DataBlock">
         <v-col cols="12" md="6" class="DataCard">
           <data-view
             :title="$t('検査陽性者の状況')"
             :title-id="'details-of-confirmed-cases'"
+            :date="patientsDate"
           >
             <template v-slot:button>
               <p :class="$style.note">
@@ -67,9 +68,7 @@ import TimeBarChart from '@/components/TimeBarChart.vue'
 import TimeStackedBarChart from '@/components/TimeStackedBarChart.vue'
 import WhatsNew from '@/components/WhatsNew.vue'
 import StaticInfo from '@/components/StaticInfo.vue'
-import Data from '@/data/data.json'
 import formatGraph from '@/utils/formatGraph'
-import formatTable from '@/utils/formatTable'
 import News from '@/data/news.json'
 import DataView from '@/components/DataView.vue'
 import ConfirmedCasesDetailsTable from '@/components/ConfirmedCasesDetailsTable.vue'
@@ -88,65 +87,27 @@ export default {
     const DataPub = {}
     // 感染者数グラフ
     const patientsGraph = {}
-    // 感染者数
-    const patientsTable = formatTable(Data.patients.data)
-    // 退院者グラフ
-    const dischargesGraph = formatGraph(Data.discharges_summary.data)
-    // 退院者数
-    const dischargesTable = formatTable(Data.discharges.data)
     const inspectionsDate = {}
     const inspectionsGraph = []
-    const inspectionsItems = ['陽性', '陰性']
+    const inspectionsItems = []
     const inspectionsLabels = []
     const patientsDate = {}
     const patientsLabels = []
-
-    const patientsAndNoSymptomsGraph = [
-      Data.patients_and_no_symptoms_summary.data['患者'],
-      Data.patients_and_no_symptoms_summary.data['無症状病原体保有者']
-    ]
-    const patientsAndNoSymptomsLabels =
-      Data.patients_and_no_symptoms_summary.labels
-    const sumInfoOfPatients = {
-      lText: patientsAndNoSymptomsGraph[0].reduce((a, c) => a + c),
-      sText:
-        patientsAndNoSymptomsLabels[patientsAndNoSymptomsLabels.length - 1] +
-        'の累計',
-      unit: '人'
-    }
-
-    // 死亡者数
-    // #MEMO: 今後使う可能性あるので一時コメントアウト
-    // const fatalitiesTable = formatTable(
-    //   Data.patients.data.filter(patient => patient['備考'] === '死亡')
-    // )
-    // 検査陽性者の状況
     const confirmedCases = {}
 
     const data = {
-      Data,
       DataPub,
-      patientsTable,
       patientsGraph,
-      dischargesTable,
-      dischargesGraph,
-      // contactsGraph,
-      // querentsGraph,
       inspectionsGraph,
       inspectionsDate,
       inspectionsItems,
       inspectionsLabels,
-      sumInfoOfPatients,
       patientsDate,
       patientsLabels,
       confirmedCases,
       loading: true,
       errored: false,
-      headerItem: {
-        icon: 'mdi-chart-timeline-variant',
-        title: '県内の最新感染動向',
-        date: Data.lastUpdate
-      },
+      headerItem: {},
       newsItems: News.newsItems.slice(0, 5),
       metroGraphOption: {
         responsive: true,
@@ -205,12 +166,18 @@ export default {
       )
       .then(response => {
         this.DataPub = response.data
+        this.headerItem = {
+          icon: 'mdi-chart-timeline-variant',
+          title: '県内の最新感染動向',
+          date: this.DataPub.lastUpdate
+        }
         this.patientsGraph = formatGraph(this.DataPub.patients.data)
         this.inspectionsDate = this.DataPub.inspections_summary.date
         this.inspectionsGraph = [
           this.DataPub.inspections_summary.data['陽性'],
           this.DataPub.inspections_summary.data['陰性']
         ]
+        this.inspectionsItems = ['陽性', '陰性']
         this.inspectionsLabels = this.DataPub.inspections_summary.labels
         this.patientsDate = this.DataPub.patients_summary.date
         this.patientsLabels = this.DataPub.patients_summary.labels
