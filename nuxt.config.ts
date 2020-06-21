@@ -4,17 +4,10 @@ const environment = process.env.NODE_ENV || 'development'
 
 const config: Configuration = {
   mode: 'universal',
-  router: {
-    base: '/covid19-chiba/'
-  },
   /*
    ** Headers of the page
    */
   head: {
-    base: {
-      href: 'router.base',
-      target: ''
-    },
     htmlAttrs: {
       prefix: 'og: http://ogp.me/ns#'
     },
@@ -77,7 +70,7 @@ const config: Configuration = {
       }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: 'favicon.ico' },
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'apple-touch-icon', href: '/apple-touch-icon-precomposed.png' }
     ]
   },
