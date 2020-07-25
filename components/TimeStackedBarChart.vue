@@ -102,7 +102,7 @@ type Computed = {
   displayOption: Chart.ChartOptions
   displayDataHeader: DisplayData
   displayOptionHeader: Chart.ChartOptions
-  scaledTicksYAxisMax: number
+  // scaledTicksYAxisMax: number
   tableHeaders: {
     text: any
     value: string
@@ -408,7 +408,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
       }
     },
     displayOptionHeader() {
-      const scaledTicksYAxisMax = this.scaledTicksYAxisMax
+      // const scaledTicksYAxisMax = this.scaledTicksYAxisMax
       const options: Chart.ChartOptions = {
         responsive: true,
         maintainAspectRatio: false,
@@ -494,7 +494,8 @@ const options: ThisTypedComponentOptionsWithRecordProps<
         animation: { duration: 0 }
       }
       return options
-    },
+    }
+    /*
     scaledTicksYAxisMax() {
       let max = 0
       for (const i in this.chartData[0]) {
@@ -502,6 +503,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
       }
       return max
     }
+    */
   },
   methods: {
     onClickLegend(i) {
