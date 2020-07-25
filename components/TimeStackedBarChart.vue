@@ -486,7 +486,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
                 suggestedMin: 0,
                 maxTicksLimit: 8,
                 fontColor: '#808080' // #808080
-                //suggestedMax: scaledTicksYAxisMax
+                // suggestedMax: scaledTicksYAxisMax
               }
             }
           ]
