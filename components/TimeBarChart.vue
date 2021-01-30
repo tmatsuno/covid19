@@ -2,7 +2,8 @@
   <data-view :title="title" :title-id="titleId" :date="date" :url="url">
     <template v-slot:note>
       <p class="note_2pCiE">
-       （注）検査による確定日の数値を掲載
+       （注）検査による確定日の数値を掲載<br />
+       （公表後の追確認により変動することがある。） 
       </p>
     </template>
     <template v-slot:button>
