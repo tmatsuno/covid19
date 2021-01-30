@@ -1,5 +1,10 @@
 <template>
   <data-view :title="title" :title-id="titleId" :date="date" :url="url">
+    <template v-slot:note>
+      <p class="note_2pCiE">
+       （注）検査による確定日の数値を掲載
+      </p>
+    </template>
     <template v-slot:button>
       <data-selector v-model="dataKind" :target-id="chartId" />
     </template>
