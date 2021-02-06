@@ -3,7 +3,7 @@
     <template v-slot:note>
       <div :class="$style.note">
         （注）<br/>
-        <ul :class="$style.note">
+        <ul>
           <li>・検査による確定日の数値を掲載。</li>
           <li>・公表後の追確認により変動することがある。</li>
         </ul>
@@ -35,11 +35,10 @@ div.note {
   font-size: 12px;
   color: $gray-3;
 }
-ul.note {
-  list-style: none;
+div.note ul {
   margin-bottom: 0.4em;
 }
-ul.note li {
+div.note ul li {
   list-style-type: none;
   text-indent: -1em;
 }
