@@ -28,14 +28,7 @@
 ul.note {
   margin-bottom: 0.4em;
 }
-ul.note li {
-  list-style-type: none;
-  text-indent: -1em;
-}
-ul.note li:before {
-  display: inline;
-  content: "（注）";
-}</style>
+</style>
 
 <script>
 import Data from '@/data/data.json'
