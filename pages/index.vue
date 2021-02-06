@@ -27,9 +27,9 @@
               <div :class="$style.note">
                 （注）<br/>
                 <ul :class="$style.note">
-                  <li>県内において疑い例または患者の濃厚接触者として検査を行ったものについて掲載。</li>
-                  <li>チャーター機帰国者、クルーズ船乗客等は含まれていない。</li>
-                  <li>公表後の追確認により変動することがある。</li>
+                  <li>・県内において疑い例または患者の濃厚接触者として検査を行ったものについて掲載。</li>
+                  <li>・チャーター機帰国者、クルーズ船乗客等は含まれていない。</li>
+                  <li>・公表後の追確認により変動することがある。</li>
                 </ul>
               </div>
             </template>
@@ -233,6 +233,11 @@ div.note {
   color: $gray-3;
 }
 ul.note {
+  list-style: none;
   margin-bottom: 0.4em;
+}
+ul.note li {
+  list-style-type: none;
+  text-indent: -1em;
 }
 </style>
