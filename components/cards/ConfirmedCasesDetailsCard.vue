@@ -12,7 +12,7 @@
           <li>チャーター機帰国者、クルーズ船乗客等は含まれていない。</li>
           <li>公表後の追確認により変動することがある。</li>
         </ul>
-      </p>
+      </div>
     </template>
     <confirmed-cases-details-table
       :aria-label="$t('検査陽性者の状況')"
