@@ -19,7 +19,7 @@
       <v-row class="DataBlock">
         <v-col cols="12" md="6" class="DataCard">
           <data-view
-            :title="$t('検査陽性者の状況')"
+            :title="'検査陽性者の状況'"
             :title-id="'details-of-confirmed-cases'"
             :date="patientsDate"
           >
@@ -30,20 +30,29 @@
               </p>
             </template>
             <confirmed-cases-details-table
-              :aria-label="$t('検査陽性者の状況')"
+              :aria-label="'検査陽性者の状況'"
               v-bind="confirmedCases"
             />
           </data-view>
         </v-col>
         <v-col cols="12" md="6" class="DataCard">
           <time-bar-chart
-            title="陽性反応者数の推移"
+            title="公表日別による陽性者数の推移"
             :title-id="'number-of-confirmed-cases'"
             :chart-id="'time-bar-chart-patients'"
-            :chart-data="patientsGraph"
+            :chart-data="patientsGraphReported"
             :date="patientsDate"
             :unit="'人'"
-          />
+          >
+            <template v-slot:otherlink>
+              <app-link
+                :to="'/cards/number-of-confirmed-cases'"
+                class="Description-Link"
+              >
+                {{ '検査確定日別による陽性者数の推移はこちら' }}
+              </app-link>
+            </template>
+          </time-bar-chart>
         </v-col>
         <v-col cols="12" md="6" class="DataCard">
           <time-stacked-bar-chart
@@ -63,12 +72,14 @@
 </template>
 <script>
 import axios from 'axios'
+import AppLink from '@/components/AppLink.vue'
 import PageHeader from '@/components/PageHeader.vue'
 import TimeBarChart from '@/components/TimeBarChart.vue'
 import TimeStackedBarChart from '@/components/TimeStackedBarChart.vue'
 import WhatsNew from '@/components/WhatsNew.vue'
 import StaticInfo from '@/components/StaticInfo.vue'
 import formatGraph from '@/utils/formatGraph'
+import formatGraphReported from '@/utils/formatGraphReported'
 import News from '@/data/news.json'
 import DataView from '@/components/DataView.vue'
 import ConfirmedCasesDetailsTable from '@/components/ConfirmedCasesDetailsTable.vue'
@@ -77,6 +88,7 @@ export default {
   components: {
     PageHeader,
     TimeBarChart,
+    AppLink,
     TimeStackedBarChart,
     WhatsNew,
     StaticInfo,
@@ -158,7 +170,10 @@ export default {
           title: '県内の最新感染動向',
           date: this.DataPub.lastUpdate
         }
-        this.patientsGraph = formatGraph(this.DataPub.patients.data)
+        this.patientsGraphConfirmed = formatGraph(this.DataPub.patients.data)
+        this.patientsGraphReported = formatGraphReported(
+          this.DataPub.patients.data
+        )
         this.inspectionsDate = this.DataPub.inspections_summary.date
         this.inspectionsGraph = [
           this.DataPub.inspections_summary.data['陽性'],

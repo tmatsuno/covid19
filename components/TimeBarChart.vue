@@ -3,6 +3,8 @@
     <template v-slot:button>
       <data-selector v-model="dataKind" :target-id="chartId" />
     </template>
+    <slot name="description" />
+    <slot name="otherlink" />
     <bar
       :chart-id="chartId"
       :chart-data="displayData"
