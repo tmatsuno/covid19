@@ -24,11 +24,11 @@
             :date="patientsDate"
           >
             <template v-slot:note>
-              <p :class="$style.note">
-                （注）県内において疑い例または患者の濃厚接触者として検査を行ったものについて掲載<br />
-                （チャーター機帰国者、クルーズ船乗客等は含まれていない。）<br />
-                （公表後の追確認により変動することがある。） 
-              </p>
+              <ul :class="$style.note">
+              <li>県内において疑い例または患者の濃厚接触者として検査を行ったものについて掲載。</li>
+              <li>チャーター機帰国者、クルーズ船乗客等は含まれていない。</li>
+              <li>公表後の追確認により変動することがある。</li>
+              </ul>
             </template>
             <confirmed-cases-details-table
               :aria-label="$t('検査陽性者の状況')"
@@ -228,5 +228,16 @@ export default {
   margin-bottom: 0;
   font-size: 12px;
   color: $gray-3;
+}
+ul.note {
+  margin-bottom: 0.4em;
+}
+ul.note li {
+  list-style-type: none;
+  text-indent: -1em;
+}
+ul.note li:before {
+  display: inline;
+  content: "（注）";
 }
 </style>
