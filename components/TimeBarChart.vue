@@ -1,10 +1,12 @@
 <template>
   <data-view :title="title" :title-id="titleId" :date="date" :url="url">
     <template v-slot:note>
-      <ul :class="$style.note">
-       <li>検査による確定日の数値を掲載。</li>
-       <li>公表後の追確認により変動することがある。</li>
-      </ul>
+      <p :class="$style.note">（注）
+        <ul>
+         <li>検査による確定日の数値を掲載。</li>
+         <li>公表後の追確認により変動することがある。</li>
+        </ul>
+      </p>
     </template>
     <template v-slot:button>
       <data-selector v-model="dataKind" :target-id="chartId" />
@@ -32,7 +34,7 @@
   font-size: 12px;
   color: $gray-3;
 }
-ul.note {
+.note ul {
   margin-bottom: 0.4em;
 }
 </style>
