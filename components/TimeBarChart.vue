@@ -1,12 +1,13 @@
 <template>
   <data-view :title="title" :title-id="titleId" :date="date" :url="url">
     <template v-slot:note>
-      <p :class="$style.note">（注）<br/>
-        <ul>
-         <li>検査による確定日の数値を掲載。</li>
-         <li>公表後の追確認により変動することがある。</li>
+      <div :class="$style.note">
+        （注）<br/>
+        <ul :class="$style.note">
+          <li>検査による確定日の数値を掲載。</li>
+          <li>公表後の追確認により変動することがある。</li>
         </ul>
-      </p>
+      </div>
     </template>
     <template v-slot:button>
       <data-selector v-model="dataKind" :target-id="chartId" />
@@ -28,13 +29,13 @@
 </template>
 
 <style lang="scss" module>
-.note {
+div.note {
   margin-top: 10px;
   margin-bottom: 0;
   font-size: 12px;
   color: $gray-3;
 }
-.note ul {
+ul.note {
   margin-bottom: 0.4em;
 }
 </style>
