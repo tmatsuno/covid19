@@ -7,11 +7,11 @@
     <template v-slot:button>
       <div :class="$style.note">
         （注）<br/>
-        <ul>
-          <li>・県内において疑い例または患者の濃厚接触者として検査を行ったものについて掲載。</li>
-          <li>・チャーター機帰国者、クルーズ船乗客等は含まれていない。</li>
-          <li>・公表後の追確認により変動することがある。</li>
-        </ul>
+          <p>
+          ・県内において疑い例または患者の濃厚接触者として検査を行ったものについて掲載。<br/>
+          ・チャーター機帰国者、クルーズ船乗客等は含まれていない。<br/>
+          ・公表後の追確認により変動することがある。
+          </p>
       </div>
     </template>
     <confirmed-cases-details-table
@@ -24,16 +24,12 @@
 <style lang="scss" module>
 div.note {
   margin-top: 10px;
-  margin-bottom: 0;
+  margin-bottom: 0em;
   font-size: 12px;
   color: $gray-3;
 }
-div.note ul {
-  margin-bottom: 0.4em;
-}
-div.note ul li {
-  list-style-type: none;
-  text-indent: -1em;
+div.note p {
+  padding-left: 1em;
 }
 </style>
 

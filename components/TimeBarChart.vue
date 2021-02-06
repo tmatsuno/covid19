@@ -2,11 +2,11 @@
   <data-view :title="title" :title-id="titleId" :date="date" :url="url">
     <template v-slot:note>
       <div :class="$style.note">
-        （注）<br/>
-        <ul>
-          <li>・検査による確定日の数値を掲載。</li>
-          <li>・公表後の追確認により変動することがある。</li>
-        </ul>
+      （注）<br/>
+      <p>
+        ・検査による確定日の数値を掲載。<br/>
+        ・公表後の追確認により変動することがある。
+      </p>
       </div>
     </template>
     <template v-slot:button>
@@ -31,16 +31,12 @@
 <style lang="scss" module>
 div.note {
   margin-top: 10px;
-  margin-bottom: 0;
+  margin-bottom: 0em;
   font-size: 12px;
   color: $gray-3;
 }
-div.note ul {
-  margin-bottom: 0.4em;
-}
-div.note ul li {
-  list-style-type: none;
-  text-indent: -1em;
+div.note p {
+  padding-left: 1em;
 }
 </style>
 
