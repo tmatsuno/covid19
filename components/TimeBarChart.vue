@@ -1,7 +1,7 @@
 <template>
   <data-view :title="title" :title-id="titleId" :date="date" :url="url">
     <template v-slot:note>
-      <p :class="$style.note">（注）
+      <p :class="$style.note">（注）<br/>
         <ul>
          <li>検査による確定日の数値を掲載。</li>
          <li>公表後の追確認により変動することがある。</li>

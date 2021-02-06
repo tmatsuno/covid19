@@ -5,7 +5,7 @@
     :date="Data.patients.date"
   >
     <template v-slot:button>
-      <p :class="$style.note">（注）
+      <p :class="$style.note">（注）<br/>
         <ul>
         <li>県内において疑い例または患者の濃厚接触者として検査を行ったものについて掲載。</li>
         <li>チャーター機帰国者、クルーズ船乗客等は含まれていない。</li>
