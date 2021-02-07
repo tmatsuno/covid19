@@ -11,6 +11,7 @@
           :chart-id="'time-bar-chart-patients'"
           :chart-data="patientsGraph"
           :date="patientsDate"
+          :by-date="true"
           :unit="'人'"
         />
       </client-only>

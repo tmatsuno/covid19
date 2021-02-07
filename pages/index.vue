@@ -43,8 +43,9 @@
             :chart-data="patientsGraphReported"
             :date="patientsDate"
             :unit="'人'"
+            :by-date="true"
           >
-            <template v-slot:otherlink>
+            <template v-slot:description>
               <app-link
                 :to="'/cards/number-of-confirmed-cases'"
                 class="Description-Link"
@@ -78,8 +79,10 @@ import TimeBarChart from '@/components/TimeBarChart.vue'
 import TimeStackedBarChart from '@/components/TimeStackedBarChart.vue'
 import WhatsNew from '@/components/WhatsNew.vue'
 import StaticInfo from '@/components/StaticInfo.vue'
-import formatGraph from '@/utils/formatGraph'
-import formatGraphReported from '@/utils/formatGraphReported'
+import {
+  formatGraphReported,
+  formatGraphInspections
+} from '@/utils/formatGraph'
 import News from '@/data/news.json'
 import DataView from '@/components/DataView.vue'
 import ConfirmedCasesDetailsTable from '@/components/ConfirmedCasesDetailsTable.vue'
@@ -170,17 +173,17 @@ export default {
           title: '県内の最新感染動向',
           date: this.DataPub.lastUpdate
         }
-        this.patientsGraphConfirmed = formatGraph(this.DataPub.patients.data)
+        const inspections = formatGraphInspections(
+          this.DataPub.inspections.data
+        )
+        this.inspectionsLabels = inspections.labels
+        this.inspectionsGraph = inspections.datasets
+        this.inspectionsDate = this.DataPub.inspections_summary.date
+        this.inspectionsItems = ['陽性', '陰性']
+
         this.patientsGraphReported = formatGraphReported(
           this.DataPub.patients.data
         )
-        this.inspectionsDate = this.DataPub.inspections_summary.date
-        this.inspectionsGraph = [
-          this.DataPub.inspections_summary.data['陽性'],
-          this.DataPub.inspections_summary.data['陰性']
-        ]
-        this.inspectionsItems = ['陽性', '陰性']
-        this.inspectionsLabels = this.DataPub.inspections_summary.labels
         this.patientsDate = this.DataPub.patients_summary.date
         this.patientsLabels = this.DataPub.patients_summary.labels
         const data = this.DataPub.main_summary
