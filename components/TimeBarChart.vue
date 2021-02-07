@@ -181,7 +181,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
         displayData: this.displayData,
         dataIndex: 1
       })
-      const formattedLastDay = this.$d(lastDay, 'date')
+      const formattedLastDay = new Date(lastDay).toLocaleDateString()
       if (this.dataKind === 'transition' && this.byDate) {
         return {
           lText: lastDayData,
@@ -289,7 +289,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
             },
             title: (tooltipItem, data) => {
               const label = data.labels![tooltipItem[0].index!] as string
-              return this.$d(new Date(label), 'date')
+              return new Date(label).toLocaleDateString()
             }
           }
         },

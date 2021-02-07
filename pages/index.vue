@@ -63,6 +63,7 @@
             :chart-data="inspectionsGraph"
             :date="inspectionsDate"
             :items="inspectionsItems"
+            :data-labels="inspectionsItems"
             :labels="inspectionsLabels"
             :unit="'件'"
           />

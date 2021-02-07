@@ -71,7 +71,6 @@ const options: ThisTypedComponentOptionsWithRecordProps<
       if (!container || container.clientWidth === 0) return
       const containerWidth = container.clientWidth
       this.chartWidth = this.calcChartWidth(containerWidth, this.labelCount)
-      console.log('scroll acjust chartwidth' + this.chartWidth)
     },
     calcChartWidth(containerWidth, labelCount) {
       const dates = 60
@@ -84,18 +83,15 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     },
     scrollRightSide() {
       const scrollable = this.$refs.scrollable as HTMLElement
-      console.log('scrooRightSide' + scrollable)
       if (!scrollable) return
       scrollable.scrollLeft = this.chartWidth
     },
     handleResize() {
       clearTimeout(this.timerId)
-      console.log('handleResize')
       this.timerId = window.setTimeout(this.adjustChartWidth, 500)
     }
   },
   mounted() {
-    console.log('scroll mounted')
     this.adjustChartWidth()
     this.$on('update-width', this.scrollRightSide)
     window.addEventListener('resize', this.handleResize)

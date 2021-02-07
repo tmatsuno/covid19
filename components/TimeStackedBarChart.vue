@@ -218,7 +218,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
   computed: {
     displayInfo() {
       const lastDay: string = this.labels[this.labels.length - 1]
-      const date = this.$d(new Date(lastDay), 'date')
+      const date = new Date(lastDay).toLocaleDateString()
       if (this.dataKind === 'transition') {
         return {
           lText: this.sum(this.pickLastNumber(this.chartData)).toLocaleString(),
@@ -342,7 +342,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
             },
             title: (tooltipItem, data) => {
               const label = data.labels![tooltipItem[0].index!] as string
-              return this.$d(new Date(label), 'date')
+              return new Date(label).toLocaleDateString()
             }
           }
         },
