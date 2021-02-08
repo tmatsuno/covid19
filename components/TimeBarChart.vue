@@ -59,9 +59,7 @@
     </template>
   </data-view>
 </template>
-
 <style></style>
-
 <script lang="ts">
 import { Chart } from 'chart.js'
 import dayjs from 'dayjs'

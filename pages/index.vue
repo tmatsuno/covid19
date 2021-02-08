@@ -87,7 +87,6 @@ import {
 import News from '@/data/news.json'
 import DataView from '@/components/DataView.vue'
 import ConfirmedCasesDetailsTable from '@/components/ConfirmedCasesDetailsTable.vue'
-
 export default {
   components: {
     PageHeader,
