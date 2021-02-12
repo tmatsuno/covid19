@@ -1,11 +1,12 @@
 <template>
-  <data-view :title="title" :title-id="titleId" :date="date">
+  <data-view :title="title" :title-id="titleId" :date="date" :url="url">
     <template v-slot:attentionNote>
       <slot name="attentionNote" />
     </template>
     <template v-slot:description>
       <slot name="description" />
     </template>
+
     <template v-slot:button>
       <data-selector
         v-model="dataKind"
@@ -59,7 +60,7 @@
     </template>
   </data-view>
 </template>
-<style></style>
+
 <script lang="ts">
 import { Chart } from 'chart.js'
 import dayjs from 'dayjs'

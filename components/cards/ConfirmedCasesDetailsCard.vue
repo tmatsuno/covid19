@@ -5,10 +5,14 @@
     :date="Data.patients.date"
   >
     <template v-slot:button>
-      <p :class="$style.note">
-        （注）県内において疑い例または患者の濃厚接触者として検査を行ったものについて掲載<br />
-        （チャーター機帰国者、クルーズ船乗客等は含まれていない。）
-      </p>
+      <div :class="$style.note">
+        （注）<br />
+        <p>
+          ・県内において疑い例または患者の濃厚接触者として検査を行ったものについて掲載。<br />
+          ・チャーター機帰国者、クルーズ船乗客等は含まれていない。<br />
+          ・公表後の追確認により変動することがある。
+        </p>
+      </div>
     </template>
     <confirmed-cases-details-table
       :aria-label="'検査陽性者の状況'"
@@ -18,11 +22,14 @@
 </template>
 
 <style lang="scss" module>
-.note {
+div.note {
   margin-top: 10px;
-  margin-bottom: 0;
+  margin-bottom: 0em;
   font-size: 12px;
   color: $gray-3;
+}
+div.note p {
+  padding-left: 1em;
 }
 </style>
 

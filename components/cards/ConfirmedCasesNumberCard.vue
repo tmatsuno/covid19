@@ -6,14 +6,24 @@
     <v-col cols="12" md="6" class="DataCard">
       <client-only>
         <time-bar-chart
-          title="検査確定日別による陽性者数の推移"
+          title="確定日別による陽性者数の推移"
           :title-id="'number-of-confirmed-cases'"
           :chart-id="'time-bar-chart-patients'"
           :chart-data="patientsGraph"
           :date="patientsDate"
           :by-date="true"
           :unit="'人'"
-        />
+        >
+          <template v-slot:description>
+            <div :class="$style.note">
+              （注）<br />
+              <p>
+                ・検査による確定日の数値を掲載。<br />
+                ・公表後の追確認により変動することがある。
+              </p>
+            </div>
+          </template>
+        </time-bar-chart>
       </client-only>
     </v-col>
   </div>
@@ -59,13 +69,14 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.Description-Link {
-  text-decoration: none;
-  @include button-text('sm');
+<style lang="scss" module>
+.note {
+  margin-top: 10px;
+  margin-bottom: 0em;
+  font-size: 12px;
+  color: $gray-3;
 }
-.Description-ExternalLink {
-  margin-bottom: 10px;
+.note p {
+  padding-left: 1em;
 }
 </style>
